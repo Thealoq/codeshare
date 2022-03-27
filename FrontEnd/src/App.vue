@@ -1,25 +1,30 @@
 <template>
   <div id="app">
+    <Navbar/>
     <router-view/>
-    <BottomNavbar />
+    <BottomNavbar/>
   </div>
 </template>
 <script>
 import BottomNavbar from "./components/BottomNavbar.vue"
+import Navbar from "./components/Navbar.vue"
+
 export default {
   name: 'App',
   components: {
-    BottomNavbar
+    BottomNavbar,
+    Navbar
   },
-  }
+}
 </script>
-
 
 
 <style>
 
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-body{
+
+body {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,7 +36,7 @@ body{
 
 }
 
-#app{
+#app {
   width: 100%;
   height: 100%;
 
@@ -47,18 +52,11 @@ body{
   color: #4f5fc5;
 }
 
-@media screen and (max-width:  2200px) {
-  .navtwo{
-    display: none;
-  }
-}
-@media screen and (max-width:  750px) {
-  .navbar{
-    display: none;
-  }
-  .navtwo{
-     display: list-item; 
-  }
+nav {
+  padding: 0.2rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
 }
 
 

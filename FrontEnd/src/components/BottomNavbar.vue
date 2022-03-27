@@ -1,24 +1,24 @@
 <template>
   <div class="bottom-navbar">
     <button class="active">
-      <router-link to="/xd">
-        <i class='bx bx-home'></i>
+      <router-link to="/info">
+        <i class='bx bx-info-circle'></i>
       </router-link>
     </button>
     <button>
-      <router-link to="/xd">
-        <i class='bx bx-chat'></i>
+      <router-link to="/share">
+        <i class='bx bxs-share'></i>
         </router-link>
     </button>
     <button
         class="float">
-      <router-link to="/">
-        <i class='bx bx-plus'></i>
+      <router-link style="color: #1a1f2d" to="/">
+        <i  class='bx bx-home'></i>
         </router-link>
     </button>
     <button>
-      <router-link to="/">
-        <i class='bx bx-shopping-bag'></i>
+      <router-link to="/codes">
+        <i class='bx bx-code'></i>
       </router-link>
     </button>
     <button>
@@ -65,10 +65,12 @@ a{
   transform: scale(1.2);
 }
 
+
+
 .bottom-navbar button.float {
   margin-top: -50px;
-  background: #3e8e41;
-  color: #fff;
+  background: white;
+  color: #1a1f2d;
   border-radius: 25px;
   height: 60px;
 }
@@ -81,4 +83,5 @@ a{
   font-size: 1.5rem;
   pointer-events: none;
 }
+
 </style>

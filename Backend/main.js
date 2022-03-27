@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const fetch = require('node-fetch');
 const cors = require("cors");
 const Badges = require("./baged");
+const moment = require('moment');
 const { URLSearchParams } = require('url');
 const { Client, Intents } = require('discord.js');
 const e = require('express');
@@ -37,14 +38,7 @@ app.listen(port, () => {
 
 
 
-app.get("/MemberRoles/:UserId", async (req, res) => {
-    const guild = client.guilds.cache.get(config.guildId);
-    const member = guild.members.cache.get(getID(req.params.UserId));
-    if(!member) return res.send("Kullanıcı Bulunamadı")
-    const roles = member.roles.cache.map(r => r);
-    const MemberRoles = roles.filter(e => e.name !== "@everyone")
-    res.send(MemberRoles);
-})
+
 
 
 
@@ -109,6 +103,8 @@ app.get("/badged/:userID", async (req, res) => {
     if (!user) return res.send("404")
     if (!user.flags) await user.fetchFlags();
     const Flags = user.flags.toArray();
+    moment.locale("tr")
+    var createdAt = moment(user.createdAt).format('MMMM Do YYYY');
     if (user.bot && Flags.includes("VERIFIED_BOT")) user.verified = true;
     const flags = Flags.filter(b => !!Badges[b]).map(m => Badges[m]);
     if (user.avatar.startsWith("a_")) flags.push(Badges["DISCORD_NITRO"]);
@@ -116,7 +112,8 @@ app.get("/badged/:userID", async (req, res) => {
         flags.push(Badges["BOT"]);
     res.send({
         user,
-        flags
+        flags,
+        createdAt
     })
 })
 

@@ -1,35 +1,47 @@
 <template>
-  <div class="Profile">
-    <div id="cardbody" class="CardBody">
-      <div class="CardBod">
-        <div class="CardProfile">
-          <img :src="this.items[0]?.banner"/>
-        </div>
-        <div class="CardAvatar">
-          <img :src="this.items[1]?.img"/>
-        </div>
-        <div class="CardBio">
-          <span>{{ this.user.username + "#" + this.user.discriminator }}</span>
-        </div>
-        <div class="CodeShare">
-          <div class="Badget">
-            <div v-for="badge in badges" :key="badge.name">
-                 <div class="icon">
-                   <img :src="badge.url"/>
-                 </div>
-            </div>
-          </div>
-        </div>
+  <div >
+    <div class="text" id="logout">
+      <h1>Giriş Yapmadin</h1>
+    </div>
+  <div id="test" class="Profile">
+    <div class="ProfileCardBody">
+      <div>
+        <img :src="this.items[1]?.img">
+      </div>
+      <div class="ProfileName">
+        <span>{{ this.user.username + "#" + this.user.discriminator }}</span>
       </div>
     </div>
-    <CardTwo />
+    <div class="Accountİnfo">
+      <div>
+        <div class="AccountBar">
+          <span>Account Info</span>
+        </div>
+         <div class="İnfoBoard">
+           <div class="bio">
+             <span>Account CreatedAt </span>
+             <span>User Name</span>
+             <span>Discrim</span>
+             <span>ID</span>
+             <span>Badges</span>
+           </div>
+           <div class="bio">
+             <span>{{this.member[0]?.createdAt}}</span>
+             <span>{{this.user.username}}</span>
+             <span>{{this.user.discriminator}}</span>
+             <span>{{this.user.id}}</span>
+             <div>
+               <img v-for="badgess in badges" :key="badgess.url" :src="badgess.url">
+             </div>
+           </div>
+         </div>
+      </div>
+    </div>
+  </div>
   </div>
 </template>
 
 <script>
-import Card from "../components/Info.vue"
-import CardTwo from "../components/Data.vue"
-
 export default {
   name: "Profile.js",
   data() {
@@ -37,21 +49,24 @@ export default {
       user: [],
       items: [],
       badges: [],
+      member:[]
     }
   },
-  components:{
-    Card,
-    CardTwo
-  },
+  components: {},
   methods: {},
   created() {
 
 
     const token = window.localStorage.getItem("token")
     if (!token) {
-      window.location.href = "/"
+      setTimeout(function () {
+        document.getElementById("test").style.display = "none"
+      }, 100)
     }
     if (token) {
+      setTimeout(function () {
+        document.getElementById("logout").style.display = "none"
+      }, 100)
       fetch("https://discord.com/api/users/@me", {
         headers: {
           authorization: `Bearer ${token}`
@@ -74,7 +89,11 @@ export default {
             fetch(`http://localhost:4000/badged/${response.id}`)
                 .then(result => result.json())
                 .then(response => {
-                  if(this.badges.length === 0) {
+                  this.member.push({
+                    createdAt: response.createdAt
+                  })
+                  console.log(response)
+                  if (this.badges.length === 0) {
                     this.badges.push({
                       name: "rozet yok",
                       url: "https://cdn.discordapp.com/emojis/956943725685260288.webp?size=96&quality=lossless"
@@ -82,9 +101,9 @@ export default {
                   } else {
                     response.flags.map(empty => {
                       this.badges.push({
-                        name: empty.name,
-                        url: empty.url
-                      })
+                            name: empty.name,
+                            url: empty.url,
+                          })
                     })
                   }
                 })
@@ -151,113 +170,92 @@ export default {
 
 <style scoped>
 
-
-
-.Badget div{
-  padding: 0px 5px;
-}
-
-.Badget img {
-  margin-top: 0.5rem;
-  border-radius: 0px;
-  width: 25px;
-  height: auto;
-}
-
-.Badget {
-  flex-wrap: wrap;
-  background-color: #1D2333;
-  width: 15rem;
-  height: 50px;
-  border-radius: 7px;
-  margin-left: 15rem;
-  margin-top: -1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.CardBio span {
-  position: absolute;
-  margin-left: 1.5rem;
-  margin-top: 0.5rem;
-  font-weight: bold;
-}
-
-.CardAvatar img {
-  margin-top: -4rem;
-  margin-left: 2rem;
-  border-radius: 12%;
-  width: 100px;
-  height: 100px;
-}
-
-.CardBod {
-  background-color: #111728;
-  height: 300px;
-  border-radius: 8px;
-}
-
-.CardProfile img {
-  border-radius: 8px;
-  width: 500px;
-  height: 200px;
-  box-shadow: 0 0 20px 20px #1a1f2d;
-}
-
-.CardBody {
-  flex-wrap: wrap;
+.text{
   display: flex;
   justify-content: center;
   align-content: center;
 }
 
-a {
-  text-decoration: none;
-  color: white;
-}
 
-.Profile {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.bio span {
   padding: 1rem;
 }
 
-
-
-
-@media screen and (max-width: 750px) {
-  .Profile {
-    margin-top: 5rem;
-  }
-
-  .CardAvatar{
-    margin-left: 7.2rem;
-  }
-
-  .CardBio{
-    margin-left: 7rem;
-  }
-
-  .CardBod{
-    height: 340px;
-  }
-
-  .icon img{
-    margin-top: -0rem;
-  }
-  .Badget{
-    margin-top: 3rem;
-    margin-left: 70px;
-    height: 20px;
-  }
-
-  .CardProfile img {
-    border-radius: 5px;
-    width: 400px;
-  }
+.bio img{
+  width: 30px;
+  height: auto;
+  border-radius: 0px;
+  margin-left: 1rem;
 
 }
+.bio{
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+}
+.İnfoBoard{
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+.AccountBar {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 1rem;
+  width: 765px;
+  border-radius: 8px;
+  background-color: #151924;
+}
+
+.Accountİnfo {
+  margin-left: 2rem;
+  display: flex;
+  border-radius: 8px;
+  width: 800px;
+  height: auto;
+  background-color: #1a1f2d;
+}
+
+.ProfileName {
+  font-size: 20px;
+  margin-left: 5rem;
+  margin-top: 3rem;
+}
+
+.Profile {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.ProfileCardBody img {
+  border-radius: 8px;
+  margin-top: 4px;
+}
+
+.ProfileCardBody {
+  display: flex;
+  border-radius: 8px;
+  width: 430px;
+  height: 135px;
+  background-color: #1a1f2d;
+}
+
+@media only screen and (max-width: 870px) {
+.ProfileCardBody{
+  display: none
+}
+  .Accountİnfo{
+    width: 500px;
+    margin-left: -0.5rem;
+    height: auto;
+  }
+
+  .AccountBar{
+    width: 350px;
+  }
+}
+
+
 </style>

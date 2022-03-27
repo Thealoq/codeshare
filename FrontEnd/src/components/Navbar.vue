@@ -1,22 +1,8 @@
 <template>
   <div class="sea">
-    <div class="navbar">
-
-      <div class="nav-logo">
-        <router-link to="/">
-          <img src="https://cdn.discordapp.com/attachments/902302627767918602/956670782631731230/logo.png">
-        </router-link>
-      </div>
-      <div class="text">
-        <div class="textback">
-          <router-link to="/codes">Codes</router-link>
-        </div>
-        <div class="textback">
-          <router-link to="/project">Special Member</router-link>
-        </div>
-        <div class="textback">
-          <router-link to="/github">Announces</router-link>
-        </div>
+    <nav>
+      <div class="nava">
+        <h1>Broost Code</h1>
       </div>
       <div id="helal">
         <div class="test" v-for="item in items" :key="item.img">
@@ -24,13 +10,12 @@
           <a style="color:White;" :href="item.link">{{ item.username }}</a>
         </div>
       </div>
-
       <div id="logo" class="logo">
         <div class="test" v-for="item in items" :key="item.img">
           <div class="dropdown" style="float:left;">
             <button class="dropbtn">
               <img :src="item.img" class="img" />
-              <a style="color:White;" :href="item.link">{{ item.username }}</a>
+              <a style="color:White;">{{ item.username }}</a>
             </button>
             <div class="dropdown-content" style="left:0;">
               <a href="/profile">Profil</a>
@@ -39,7 +24,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </nav>
   </div>
 </template>
 <script>
@@ -121,12 +106,15 @@ export default {
 
 
 
-<style>
-
-
-h4 {
-  font-weight: bold;
+<style scoped>
+*{
+  color: white;
 }
+
+#helal {
+  margin-top: 1rem;
+}
+
 .dropbtn img {
   width: 40px;
   height: 40px;
@@ -165,7 +153,7 @@ h4 {
 }
 
 .dropdown-content a {
-  color: black;
+  color: white;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
@@ -183,11 +171,62 @@ h4 {
   color: #3e8e41;
 }
 
-.menu-drop {
+
+
+.dropbtn img {
+  width: 40px;
+  height: 40px;
+}
+
+.dropbtn {
+  transition: 1s;
+  margin-left: -2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  transition: 1s;
+  background-color: #22293b;
+  border-radius: 8px;
+  margin-left: -2rem;
+  display: none;
   position: absolute;
-  background-color: #070c0e;
-  transition: all 0.5s ease-in-out;
-  margin-left: 48.5rem;
+  right: 0;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  color: #3e8e41;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  color: #3e8e41;
 }
 
 ul {
@@ -213,9 +252,6 @@ li {
   fill: #2c3e50;
 }
 
-.icon {
-  margin-left: 0.5rem;
-}
 
 .test a {
   text-decoration: none;
@@ -245,23 +281,7 @@ b .router-link-exact-active {
   width: 60px;
   height: 60px;
 }
-.nav-logo {
-  font-size: 1.5em;
-  margin-top: -0.5rem;
-}
 
-.textback {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.text {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0rem;
-}
 
 .text a {
   margin-left: 1rem;
@@ -276,14 +296,5 @@ img {
 
 }
 
-.navbar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 0rem;
-}
 
-.navbar div {
-  padding: 0.6rem;
-}
 </style>
