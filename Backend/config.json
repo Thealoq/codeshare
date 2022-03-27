@@ -1,0 +1,8 @@
+{
+  "url": "mongodb://localhost/thealoq",
+  "client_id": "957001632531488778",
+  "guildId": "956973292701495346",
+  "token":"OTU3MDAxNjMyNTMxNDg4Nzc4.Yj4bOQ.MaAeBtMlBclYCbkR-EFB8_WUsM0",
+  "client_secret": "uRR0tnNWDIZFkSKummJqiyp0oeEIT8dY",
+  "redirect_uri": "http://localhost:3000/callback"
+}
