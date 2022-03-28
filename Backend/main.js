@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const fetch = require('node-fetch');
 const cors = require("cors");
 const Badges = require("./baged");
+const Codes = require("./models/Codes");
 const moment = require('moment');
 const { URLSearchParams } = require('url');
 const { Client, Intents } = require('discord.js');
@@ -37,8 +38,38 @@ app.listen(port, () => {
 });
 
 
+app.post("/save", async (req, res) => {
+    const { Title, Description, Color, Time, Author, Type} = req.body;
+    if(Type == "Normal"){
+      Color == "fff";
+    }
+
+    if(Type == "Gold"){
+      Color == "f7c223";
+    }
+
+    if(Type == "Diamond"){
+        Color == "4ae";
+      }
+
+      if(Type == "Emerald"){
+        Color == "6d7";
+      }
+
+    const data = new Codes({
+        Title,
+        Description,
+        Author,
+        Type,
+        Color,
+        Time: moment().format("DD.MM.YYYY")
+    });
+    await data.save();
+    res.send("Kayıt Başarılı")
+})
 
 
+    
 
 
 
@@ -115,7 +146,7 @@ app.get("/badged/:userID", async (req, res) => {
         flags,
         createdAt
     })
-})
+    })
 
 
 

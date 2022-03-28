@@ -19,6 +19,7 @@
             </button>
             <div class="dropdown-content" style="left:0;">
               <a href="/profile">Profil</a>
+              <a href="/admin">Admin</a>
               <a v-on:click="login" href="#">LogOut</a>
             </div>
           </div>

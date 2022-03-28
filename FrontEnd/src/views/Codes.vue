@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="Cards">
-      <div id="Card" v-for="item in items" v-bind:style="`border: 2px solid#${item.color};`" :key="item.title" class="Card">
+      <div id="Card" v-for="item in items" v-bind:style="`border: 2px solid #${item.color};`" :key="item.title" class="Card">
         <div>
           <h3>{{item.title}}</h3>
         </div>
@@ -17,7 +17,7 @@
           <span>{{item.description}}</span>
         </div>
         <div>
-          <a :href="item.link"> <button v-bind:style="`border: 2px solid#${item.color};`" id="buttons">Tıkla Ve Git</button></a>
+          <a :href="item.link"> <button v-bind:style="`border: 2px solid #${item.color};`" id="buttons">Tıkla Ve Git</button></a>
         </div>
       </div>
     </div>
@@ -29,24 +29,32 @@ export default {
   name: "codes",
   data() {
     return {
-      items: [{
-        title: "Thealoq emerald",
-        rank: "emerald",
-        color: "6d7",
-        link: "#",
-        description: "Kullanıcılara süreli veya sınırsız premium verebilirsiniz. Kullanıcılar sürelerini kontrol edebilir. İstediğiniz kişiden premium alıp verebilirsiniz."
-      },
-        {
-          title: "Thealoq gold",
-          rank: "gold",
-          color: "f7c223",
+      items: [
+         {
+          title: "Thealoq Normal",
+          rank: "Normal",
+          color: "fff",
           link: "#",
           description: "Kullanıcılara süreli veya sınırsız premium verebilirsiniz. Kullanıcılar sürelerini kontrol edebilir. İstediğiniz kişiden premium alıp verebilirsiniz."
         },
          {
-          title: "Thealoq diamond",
-          rank: "diamond",
-          color: "4ae",
+          title: "Thealoq Gold",
+          rank: "Gold",
+          color: "f7c223",
+          link: "#",
+          description: "Kullanıcılara süreli veya sınırsız premium verebilirsiniz. Kullanıcılar sürelerini kontrol edebilir. İstediğiniz kişiden premium alıp verebilirsiniz."
+        },
+        {
+        title: "Thealoq Diamond",
+        rank: "Diamond",
+        color: "4ae",
+        link: "#",
+        description: "Kullanıcılara süreli veya sınırsız premium verebilirsiniz. Kullanıcılar sürelerini kontrol edebilir. İstediğiniz kişiden premium alıp verebilirsiniz."
+      },
+         {
+          title: "Thealoq Emerald",
+          rank: "Emerald",
+          color: "6d7",
            link: "#",
           description: "Kullanıcılara süreli veya sınırsız premium verebilirsiniz. Kullanıcılar sürelerini kontrol edebilir. İstediğiniz kişiden premium alıp verebilirsiniz."
         }]

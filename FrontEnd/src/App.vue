@@ -23,7 +23,7 @@ export default {
       setTimeout(() => {
         document.getElementById("teko").style.display = "none"
         document.getElementById("mego").style.display = "block"
-      }, 200)
+      }, 10)
       setTimeout(() => {
         document.getElementById("mego").style.display = "none"
         document.getElementById("teko").style.display = "block"
@@ -122,7 +122,7 @@ body {
   padding: 0;
   margin: 0;
   height: 100%;
-  overflow: scroll;
+  overflow: auto;
   height: 100%;
   background-color: #212738;
   color: white;
