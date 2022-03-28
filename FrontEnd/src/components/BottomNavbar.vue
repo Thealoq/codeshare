@@ -1,30 +1,30 @@
 <template>
   <div class="bottom-navbar">
     <button class="active">
-      <router-link to="/info">
+      <a href="/info">
         <i class='bx bx-info-circle'></i>
-      </router-link>
+      </a>
     </button>
     <button>
-      <router-link to="/share">
+      <a href="/share">
         <i class='bx bxs-share'></i>
-        </router-link>
+        </a>
     </button>
     <button
         class="float">
-      <router-link style="color: #1a1f2d" to="/">
+      <a style="color: #1a1f2d" href="/">
         <i  class='bx bx-home'></i>
-        </router-link>
+        </a>
     </button>
     <button>
-      <router-link to="/codes">
+      <a href="/codes">
         <i class='bx bx-code'></i>
-      </router-link>
+      </a>
     </button>
     <button>
-      <router-link to="/profile">
+      <a href="/profile">
         <i class='bx bx-user'></i>
-      </router-link>
+      </a>
     </button>
   </div>
 </template>

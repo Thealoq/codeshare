@@ -23,9 +23,7 @@
 
     </div>
 </template>
-
 <script>
-
 export default {
     name: "ResponsiveNavbar",
     data() {
