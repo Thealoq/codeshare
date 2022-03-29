@@ -24,7 +24,7 @@ const router = createRouter({
         {
             path: '/admin',
             name: 'Admin',
-            component: () => import('./views/Admin/index.vue')
+            component: () => import('./views/Admin.vue')
 
         },
         {
@@ -58,9 +58,5 @@ const router = createRouter({
 
 
 
-
-
-
-
-
-createApp(App).use(router).mount('#app')
+import VueCodeHighlight from 'vue-code-highlight';
+createApp(App).use(router).use(VueCodeHighlight).mount('#app')

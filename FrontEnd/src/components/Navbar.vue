@@ -26,7 +26,7 @@
         </div>
       </div>
     </nav>
-  </div>
+    </div>
 </template>
 <script>
 export default {
@@ -108,6 +108,7 @@ export default {
 
 
 <style scoped>
+
 *{
   color: white;
 }
@@ -243,7 +244,6 @@ li {
 
 .sea {
   display: block;
-  background-color: #1a1f2d;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -253,6 +253,9 @@ li {
   fill: #2c3e50;
 }
 
+nav{
+  background-color: #111728;
+}
 
 .test a {
   text-decoration: none;

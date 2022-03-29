@@ -37,35 +37,56 @@ app.listen(port, () => {
     console.info('Running on port ' + port);
 });
 
+app.get("/api/all", async (req, res) => {
+    Codes.find({}, (err, codes) => {
+        if (err) return res.send(err)
+        res.send(codes)
+    })
+})
+
+app.get("/api/find/:code", async (req, res) => {
+    var data = await Codes.findById(req.params.code).exec();
+    if(!data) return res.send("not found")
+    res.send(data)
+})
+
 
 app.post("/save", async (req, res) => {
-    const { Title, Description, Color, Time, Author, Type} = req.body;
-    if(Type == "Normal"){
-      Color == "fff";
-    }
-
-    if(Type == "Gold"){
-      Color == "f7c223";
-    }
-
-    if(Type == "Diamond"){
-        Color == "4ae";
-      }
-
-      if(Type == "Emerald"){
-        Color == "6d7";
-      }
-
-    const data = new Codes({
+    const { Title, Description, Time, Author, Type, Code, Tags} = req.body;
+    let data = new Codes({
         Title,
         Description,
         Author,
+        Code,
         Type,
-        Color,
+        Tags,
         Time: moment().format("DD.MM.YYYY")
     });
-    await data.save();
-    res.send("Kayıt Başarılı")
+    if(Type == "Normal"){
+        data.Color = "fff";
+        await data.save();
+    }
+
+    if(Type == "Gold"){
+        data.Color="f7c223";
+        await data.save();
+    }
+    if(Type == "Emerald"){
+        data.Color = "07f510";
+        await data.save();
+    }
+    if(Type == "Diamond"){
+        data.Color = "4ae";
+        await data.save();
+      }
+
+      if(Type == "Booster"){
+        data.Color = "ea00ff";
+        await data.save();
+      }
+    res.send({status:true,thealoq:data});
+
+
 })
 
 
@@ -73,55 +94,6 @@ app.post("/save", async (req, res) => {
 
 
 
-app.get("/guilds/:GuildId", async (req, res) => {
-    const GuildId = req.params.GuildId
-    const guild = client.guilds.cache.get(GuildId)
-    if (!guild) return res.send({
-        success: false,
-        data: "Guild not found"
-    })
-    const data = {
-        name: guild.name,
-        id: guild.id,
-        icon: guild.iconURL({ format: 'png', dynamic: true, size: 1024 }),
-        //owner: guild.owner.user.username,
-        //ownerId: guild.owner.user.id,
-        memberCount: guild.memberCount,
-        verificationLevel: guild.verificationLevel,
-        region: guild.region,
-        afkChannel: guild.afkChannel ? guild.afkChannel.name : "None",
-        afkTimeout: guild.afkTimeout,
-        defaultMessageNotifications: guild.defaultMessageNotifications,
-        defaultRole: guild.defaultRole ? guild.defaultRole.name : "None",
-        defaultChannel: guild.defaultChannel ? guild.defaultChannel.name : "None",
-        createdAt: guild.createdAt,
-        roles: guild.roles.cache.map(r => {
-            return {
-                name: r.name,
-                id: r.id,
-                color: r.color,
-                hoist: r.hoist,
-                position: r.position,
-                permissions: r.permissions,
-                createdAt: r.createdAt
-            }
-        }),
-        channels: guild.channels.cache.map(c => {
-            return {
-                name: c.name,
-                id: c.id,
-                type: c.type,
-                position: c.position,
-                createdAt: c.createdAt
-            }
-        }
-        )
-    }
-    res.send({
-        success: true,
-        data: data
-    })
-})
 
 
 

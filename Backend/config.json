@@ -1,5 +1,5 @@
 {
-  "url": "mongodb://localhost/thealoq",
+  "url": "mongodb://localhost:27017/thealoq",
   "client_id": "957001632531488778",
   "guildId": "956973292701495346",
   "token":"OTU3MDAxNjMyNTMxNDg4Nzc4.Yj4bOQ.MULh_JtauyhiiILL0fMc-rCIBMM",

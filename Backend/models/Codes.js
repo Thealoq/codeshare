@@ -9,8 +9,9 @@ const Codes = mongoose.Schema(
     Author: String,
     Type: String,
     Color: String,
+    Tags: String,
   },
-  { minimize: false, collection: "Codes" }
+  { minimize: false, collection: "Codes",usestrict:false }
 );
 
 module.exports = mongoose.model("Codes", Codes);

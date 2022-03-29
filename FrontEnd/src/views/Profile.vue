@@ -37,6 +37,22 @@
          </div>
       </div>
     </div>
+    <div class="MobileCard">
+      <div class="MobileInfo">
+        <div class="MobileDiver">
+          <span>Create At  <b>{{this.member[0]?.createdAt}}</b></span>
+        </div>
+        <div  class="MobileDiver">
+          <span>Username <b>{{this.user.username}}</b></span>
+        </div>
+        <div  class="MobileDiver">
+          <span>User Disc <b>{{this.user.discriminator}}</b> </span>
+        </div>
+        <div  class="MobileDiver">
+          <span>UserID <b>{{this.user.id}}</b> </span>
+        </div>
+      </div>
+    </div>
   </div>
   </div>
 </template>
@@ -85,14 +101,12 @@ export default {
               })
             }
 
-            console.log(response);
             fetch(`http://localhost:4000/badged/${response.id}`)
                 .then(result => result.json())
                 .then(response => {
                   this.member.push({
                     createdAt: response.createdAt
                   })
-                  console.log(response)
                   if (this.badges.length === 0) {
                     this.badges.push({
                       name: "rozet yok",
@@ -169,6 +183,17 @@ export default {
 </script>
 
 <style scoped>
+.MobileInfo div {
+  padding: 1rem;
+}
+.MobileCard{
+  margin-top: 1rem;
+  border-radius: 8px;
+  width: 330px;
+  height: 200px;
+  padding: 1rem;
+  background-color: #1a1f2d;
+}
 
 .text{
   display: flex;
@@ -242,20 +267,54 @@ export default {
   background-color: #1a1f2d;
 }
 
-@media only screen and (max-width: 870px) {
-.ProfileCardBody{
-  display: none
+
+
+@media only screen and (max-width: 2000px) {
+ .MobileCard{
+   display: none;
+ }
 }
+
+@media only screen and (max-width: 1200px) {
+ .Profile{
+   flex-direction: column;
+   margin-left: 25%;
+ }
   .Accountİnfo{
-    width: 500px;
-    margin-left: -0.5rem;
-    height: auto;
+    margin-left: 0;
+    display: none;
   }
 
-  .AccountBar{
-    width: 350px;
+  .MobileCard{
+    display: flex;
   }
 }
-
+@media only screen and (max-width: 850px) {
+  .Profile{
+    flex-direction: column;
+    margin-left: 18%;
+  }
+  .Accountİnfo{
+    margin-left: 0;
+    display: none;
+  }
+}
+@media only screen and (max-width: 670px) {
+  .Profile{
+    flex-direction: column;
+    margin-left: 0;
+    margin-left: -0.3rem;
+  }
+  .ProfileCardBody{
+    width: 360px;
+  }
+  .ProfileCardBody span{
+    margin-left: -2rem;
+  }
+  .Accountİnfo{
+    margin-left: 0;
+    display: none;
+  }
+}
 
 </style>

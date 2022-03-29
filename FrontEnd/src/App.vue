@@ -23,7 +23,7 @@ export default {
       setTimeout(() => {
         document.getElementById("teko").style.display = "none"
         document.getElementById("mego").style.display = "block"
-      }, 10)
+      }, 20)
       setTimeout(() => {
         document.getElementById("mego").style.display = "none"
         document.getElementById("teko").style.display = "block"
@@ -110,11 +110,11 @@ body, html {
   margin-left: 50%;
 }
 
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 
 body {
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -129,6 +129,7 @@ body {
 
 
 }
+
 
 #app {
   width: 100%;
@@ -146,6 +147,7 @@ body {
 }
 
 nav {
+  
   padding: 0.2rem 2rem;
   display: flex;
   justify-content: space-between;

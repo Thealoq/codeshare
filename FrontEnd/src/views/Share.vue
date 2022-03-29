@@ -1,62 +1,112 @@
-<template >
-  <div class="center">
-      <div class="container">
-    <form @submit="onsubmit">
-      <div class="well">
-        <h4>Share Code</h4>
-        <div class="form-group">
-          <label class="pull-left"> Title </label>
-          <input type="text" class="form-control" placeholder="Title" v-model="this.User.Title">
+<template>
+  <div class="top">
+    <div class="inputs">
+      <div class="input">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M11 6.914V2.586L6.293 7.293l-3.774 3.774 3.841 3.201L11 18.135V13.9c8.146-.614 11 4.1 11 4.1 0-2.937-.242-5.985-2.551-8.293C16.765 7.022 12.878 6.832 11 6.914z"/></svg>
         </div>
-        <div class="form-group">
-          <label class="pull-left"> Description </label>
-          <input type="text" placeholder="Description" v-model="this.User.Description">
-        </div>
-        <div class="form-group">
-          <label class="pull-left"> Type </label>
-          <select v-model="this.User.Type">
-            <option value="Normal">Normal</option>
-            <option value="Gold">Gold</option>
-            <option value="Diamond">Diamond</option>
-              <option value="Emerald">Emerald</option>
-            <option value="Booster">Booster</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="pull-left"> Code </label>
-          <textarea  v-model="this.User.Code"> </textarea>
+        <div>
+          <h5>Share Code</h5>
         </div>
       </div>
-      <button type="submit" >Submit</button>
-    </form>
-  
-  </div>
+      <div class="inputbress">
+        <form style="padding: 1rem" @submit="onsubmit">
+        <div class="value">
+          <div class="text">
+            <span>Title</span>
+          </div>
+          <div>
+            <input maxlength="25" type="text" class="form-control" placeholder="Title" v-model="this.User.Title">
+          </div>
+        </div>
+          <div class="value">
+            <div class="text">
+              <span>Description</span>
+            </div>
+            <div>
+              <input maxlength="50" type="text" placeholder="Description" v-model="this.User.Description">
+            </div>
+          </div>
+          <div class="value">
+            <div class="text">
+              <span>Type</span>
+            </div>
+            <div>
+              <select v-model="this.User.Type">
+                <option value="Normal">Normal</option>
+                <option value="Gold">Gold</option>
+                <option value="Diamond">Diamond</option>
+                <option value="Emerald">Emerald</option>
+                <option value="Booster">Booster</option>
+              </select>
+            </div>
+          </div>
+          <div class="value">
+            <div class="text">
+              <span>Code</span>
+            </div>
+            <div>
+              <textarea  v-model="this.User.Code"> </textarea>
+            </div>
+          </div>
+          <div>
+            <button type="submit" style="margin-left: 1rem; width: 190px">Submit</button>
+          </div>
+       </form>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-/* eslint-disable */
 import axios from 'axios';
+
 export default {
   name: 'share',
   data() {
     return {
-      User: { Title: '', Description: '', Code:'', Time: '', Author:'', Type:''},
+      User: {Title: '', Description: '', Code: '', Time: '', Author: '', Type: '', Tags: ''},
+      Content: true
     }
-  }, methods: {
-    onsubmit($event){
+  },
+  created() {
+    const token = window.localStorage.getItem("token");
+    if(token) {
+      fetch("https://discord.com/api/users/@me", {
+        headers: {
+          authorization: `Bearer ${token}`
+        }})
+          .then(result => result.json())
+          .then(response => {
+
+          });
+    }
+  },
+  methods: {
+    onsubmit($event) {
       $event.preventDefault();
       let newCode = {
         Title: this.User.Title,
         Description: this.User.Description,
         Code: this.User.Code,
-        Time:"",
+        Time: "",
         Type: this.User.Type,
         Author: "Thealoq",
+        Link: "/codes" + "/" + this.User._id
       }
+      var that = this;
       axios.post('http://localhost:4000/save', newCode)
           .then((response) => {
-            console.log(response);
+            if (response.status) {
+              console.log(response)
+              setTimeout(x => {
+                this.$router.push(`/code/${response.data.thealoq._id}`)
+              }, 2000)
+
+            } else {
+
+            }
+
           })
           .catch((error) => {
             console.log(error);
@@ -66,91 +116,98 @@ export default {
   }
 }
 </script>
-
-
-
-<style scoped>
+<style>
+button{
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+  background-color: #1a1f2d;
+  color: white;
+}
 textarea{
+  margin-top: 1rem;
   resize: horizontal;
-  max-width: 130px;
-  min-width: 100px;
+  width: 170px;
+  max-width: 170px;
+  min-width: 50px;
+  height: 100px;
+  outline: none;
+  padding: 0.5rem;
+  background-color: #1a1f2d;
+  border: none;
+  color: white;
+  border-radius: 5px;
 }
 
-Select{
-  background-color: #1a1f2d;
-  outline: #3e8e41 2px solid;
-  border: none;
-  padding: 0.3rem;
-  color: white;
-  margin-left: 5rem;
-  border-radius: 5px;
-  width: 200px;
+.value{
+  margin: 1rem;
+}
+.text{
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 
 input{
-background-color: #1a1f2d;
+  margin-top: 1rem;
+  outline: none;
   padding: 0.5rem;
-  border: none;
-  border-radius: 5px;
-  outline: #3e8e41 2px solid;
-  color: white;
-  margin-left: 5rem;
-}
-
-textarea{
   background-color: #1a1f2d;
-  padding: 0.5rem;
   border: none;
-  outline: #3e8e41 2px solid;
   color: white;
-  margin-left: 5rem;
-}
-
-
-button {
-  padding: 0.5rem;
   border-radius: 5px;
-  background-color: transparent;
-  border: #3e8e41 2px solid;
-  color: white;
 }
 
-.form-group{
-    margin: 1rem;
+.top {
   display: flex;
-}
-.center{
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    
+  justify-content: center;
+  align-content: center;
 }
 
-h1,
-h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.inputbress{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background-color: #293146;
+  height: 600px;
+  width: 100%;
+  border-radius: 0px 0px 15px 15px;
 }
 
-.container{
-    margin-top: 15%;
-    padding: 2rem;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    width: 500px;
-    border-radius: 20px;
-    background-color:  #1a1f2d;
-    
+.input svg {
+  fill: white;
+  margin-top: 1rem;
+  transform: rotate(180deg);
+}
+
+.input{
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background-color: #111728;
+  border-radius: 15px 15px 0px 0px;
+}
+
+.inputs{
+  margin-top: 3rem;
+  flex-direction: column;
+  width: 500px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  height: auto;
+}
+
+Select {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background-color: #1a1f2d;
+  outline: none;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  width: 190px;
 }
 </style>
