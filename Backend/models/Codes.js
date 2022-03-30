@@ -10,6 +10,7 @@ const Codes = mongoose.Schema(
     Type: String,
     Color: String,
     Tags: String,
+    Avatar: String
   },
   { minimize: false, collection: "Codes",usestrict:false }
 );

@@ -16,7 +16,7 @@
           </div>
           <div class="CardAuth">
             <div class="aut">
-              <span><b>Author: <b>{{ item.Author }}</b></b></span> <img src="../assets/thealoq.gif" alt="">
+              <span><b>Author: <b>{{ item.Author }}</b></b></span> <img :src="item.Avatar" alt="">
             </div>
 
           </div>
@@ -55,7 +55,7 @@ export default {
 <style scoped>
 .aut img{
 border-radius: 50%;
-  width: 60px;
+  width: 30px;
   height: auto;
   margin-left: 1rem;
 }
@@ -69,7 +69,6 @@ a{
   text-decoration: none;
 }
 .aut{
-  margin-left: 5rem;
   display: flex;
   justify-content: center;
   align-content: center;

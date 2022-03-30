@@ -1,12 +1,12 @@
 <template>
   <div >
     <div class="text" id="logout">
-      <h1>Giriş Yapmadin</h1>
+      <h1>you are not logged in</h1>
     </div>
   <div id="test" class="Profile">
     <div class="ProfileCardBody">
       <div>
-        <img :src="this.items[1]?.img">
+        <img :src="this.items[1].img">
       </div>
       <div class="ProfileName">
         <span>{{ this.user.username + "#" + this.user.discriminator }}</span>
@@ -26,7 +26,7 @@
              <span>Badges</span>
            </div>
            <div class="bio">
-             <span>{{this.member[0]?.createdAt}}</span>
+             <span>{{this.member[0] && this.member[0].createdAt}}</span>
              <span>{{this.user.username}}</span>
              <span>{{this.user.discriminator}}</span>
              <span>{{this.user.id}}</span>
@@ -40,7 +40,7 @@
     <div class="MobileCard">
       <div class="MobileInfo">
         <div class="MobileDiver">
-          <span>Create At  <b>{{this.member[0]?.createdAt}}</b></span>
+          <span>Create At  <b>{{this.member[0].createdAt}}</b></span>
         </div>
         <div  class="MobileDiver">
           <span>Username <b>{{this.user.username}}</b></span>

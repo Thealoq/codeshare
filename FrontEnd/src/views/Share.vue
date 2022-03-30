@@ -1,6 +1,13 @@
 <template>
-  <div class="top">
-    <div class="inputs">
+<div>
+  <div style="display:flex; justify-content: center" id="logout">
+       <h3>you are not logged in</h3>
+    </div>
+      <div style="display:flex; justify-content: center" id="aut">
+       <h3> you are not authorized</h3>
+    </div>
+  <div id="top" class="top">
+    <div id="inputs" class="inputs">
       <div class="input">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M11 6.914V2.586L6.293 7.293l-3.774 3.774 3.841 3.201L11 18.135V13.9c8.146-.614 11 4.1 11 4.1 0-2.937-.242-5.985-2.551-8.293C16.765 7.022 12.878 6.832 11 6.914z"/></svg>
@@ -56,6 +63,7 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
@@ -66,20 +74,62 @@ export default {
   data() {
     return {
       User: {Title: '', Description: '', Code: '', Time: '', Author: '', Type: '', Tags: ''},
-      Content: true
+      Content: [],
     }
   },
   created() {
     const token = window.localStorage.getItem("token");
+    if(!token) {
+       setTimeout(() => {
+                 document.getElementById("aut").style.display = "none";
+              }, 50);
+              setTimeout(() => {
+                 document.getElementById("top").style.display = "none";
+              }, 50);
+    }
     if(token) {
+       setTimeout(() => {
+                 document.getElementById("logout").style.display = "none";
+                 document.getElementsByClassName("top").style.display = "none";
+              }, 50);
       fetch("https://discord.com/api/users/@me", {
         headers: {
           authorization: `Bearer ${token}`
         }})
           .then(result => result.json())
           .then(response => {
+            if (response.avatar.startsWith("a_")) {
+              this.User.Author = response.username;
+              this.User.Avatar = "https://cdn.discordapp.com/avatars/" +
+                response.id +
+                "/" +
+                response.avatar +
+                ".gif";
+            } else {
+              this.User.Author = response.username;
+              this.User.Avatar = "https://cdn.discordapp.com/avatars/" +
+                response.id +
+                "/" +
+                response.avatar +
+                ".png";
+            }
+          fetch(`http://localhost:4000/user/roles/${response.id}`)
+          .then(result => result.json())
+          .then(res => {
+            if(res.includes("957065139461447721")) {
+                setTimeout(() => {
+                 document.getElementById("top").style.display = "flex";
+                  document.getElementById("logout").style.display = "none";
+                  document.getElementById("aut").style.display = "none";
+              }, 50);
+            
+                 
+            }
+          })
 
-          });
+
+          })
+
     }
   },
   methods: {
@@ -91,17 +141,17 @@ export default {
         Code: this.User.Code,
         Time: "",
         Type: this.User.Type,
-        Author: "Thealoq",
-        Link: "/codes" + "/" + this.User._id
+        Author: this.User.Author,
+        Link: "/codes" + "/" + this.User._id,
+        Avatar: this.User.Avatar,
       }
       var that = this;
       axios.post('http://localhost:4000/save', newCode)
           .then((response) => {
             if (response.status) {
-              console.log(response)
               setTimeout(x => {
                 this.$router.push(`/code/${response.data.thealoq._id}`)
-              }, 2000)
+              }, 600)
 
             } else {
 
@@ -111,13 +161,13 @@ export default {
           .catch((error) => {
             console.log(error);
           });
-      $event.stopPropagation();
     }
   }
 }
 </script>
 <style>
 button{
+  
   padding: 0.5rem;
   border-radius: 5px;
   border: none;
@@ -159,7 +209,7 @@ input{
 }
 
 .top {
-  display: flex;
+  display: none;
   justify-content: center;
   align-content: center;
 }

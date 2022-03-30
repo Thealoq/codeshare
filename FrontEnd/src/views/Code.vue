@@ -1,5 +1,6 @@
 <template>
-  <div v-for="item in items" :key="item.Code" class="code">
+ <div>
+    <div v-for="item in items" :key="item.Code" class="code">
       <div class="teq">
         <h3>{{item.Title}}</h3>
       </div>
@@ -22,6 +23,7 @@
   <div>
   </div>
    <div/>
+ </div>
 </template>
 
 <script>
